@@ -1035,7 +1035,7 @@ namespace Obloq {
             }
             basic.pause(1)
             _timeout += 1
-            
+
         }
         if (_timeout >= 1000 && OBLOQ_ANSWER_CMD != "MqttConneted") {
             return OBLOQ_ERROR_TYPE_IS_MQTT_CONNECT_TIMEOUT
@@ -1235,15 +1235,13 @@ namespace Obloq {
     */
     //% weight=100
     //% blockGap=50
-    //% mutate=objectdestructuring
-    //% mutateText=PacketaMqtt
-    //% mutateDefaults="message:message"
     //% blockId=obloq_mqtt_callback_user block="on topic_0 received"
-    export function Obloq_mqtt_callback_user(cb: (packet: PacketaMqtt) => void): void {
+    //% useLoc="Obloq.Obloq_mqtt_callback_user"
+    export function Obloq_mqtt_callback_user(cb: (message: string) => void): void {
         Obloq_mqtt_callback(() => {
             const packet = new PacketaMqtt()
             packet.message = OBLOQ_ANSWER_CONTENT
-            cb(packet)
+            cb(packet.message)
         });
     }
 
@@ -1253,17 +1251,15 @@ namespace Obloq {
     */
     //% weight=180
     //% blockGap=60
-    //% mutate=objectdestructuring
-    //% mutateText=PacketaMqtt
-    //% mutateDefaults="message:message"
     //% blockId=obloq_mqtt_callback_user_more block="on %top |received"
     //% top.fieldEditor="gridpicker" top.fieldOptions.columns=2
+    //% useLoc="Obloq.Obloq_mqtt_callback_user_more"
     //% advanced=true
-    export function Obloq_mqtt_callback_user_more(top: TOPIC, cb: (packet: PacketaMqtt) => void) {
+    export function Obloq_mqtt_callback_user_more(top: TOPIC, cb: (message: string) => void) {
         Obloq_mqtt_callback_more(top, () => {
             const packet = new PacketaMqtt()
             packet.message = OBLOQ_ANSWER_CONTENT
-            cb(packet)
+            cb(packet.message)
         });
     }
 
@@ -1388,4 +1384,4 @@ namespace Obloq {
         obloqEventOn()
         control.onEvent(<number>32, <number>1, Obloq_serial_recevice); // register handler
     }
-}
+} 

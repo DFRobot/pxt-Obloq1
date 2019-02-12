@@ -1,17 +1,17 @@
 let message = ""
-Obloq.Obloq_mqtt_callback_user( ({ message: message }) =>  {
+Obloq.Obloq_mqtt_callback_user(function (message) {
     basic.showString(message)
 })
-Obloq.Obloq_mqtt_callback_user_more(TOPIC.topic_1,  ({ message: message }) =>  {
+Obloq.Obloq_mqtt_callback_user_more(TOPIC.topic_1, function (message) {
     basic.showString(message)
 })
-Obloq.Obloq_mqtt_callback_user_more(TOPIC.topic_2,  ({ message: message }) =>  {
+Obloq.Obloq_mqtt_callback_user_more(TOPIC.topic_2, function (message) {
     basic.showString(message)
 })
-Obloq.Obloq_mqtt_callback_user_more(TOPIC.topic_3,  ({ message: message }) =>  {
+Obloq.Obloq_mqtt_callback_user_more(TOPIC.topic_3, function (message) {
     basic.showString(message)
 })
-Obloq.Obloq_mqtt_callback_user_more(TOPIC.topic_4,  ({ message: message }) =>  {
+Obloq.Obloq_mqtt_callback_user_more(TOPIC.topic_4, function (message) {
     basic.showString(message)
 })
 Obloq.Obloq_mqtt_setup(
