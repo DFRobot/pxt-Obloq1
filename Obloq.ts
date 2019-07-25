@@ -481,6 +481,7 @@ namespace Obloq {
                 OBLOQ_MQTT_TOPIC[top][1] = "true"
                 break
             } else if (OBLOQ_ANSWER_CMD == "SubFailure") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 OBLOQ_WRONG_TYPE = "mqtt subtopic failure"
                 return
             }
@@ -488,6 +489,7 @@ namespace Obloq {
             _timeout += 1
         }
         if (_timeout >= 1000 && OBLOQ_ANSWER_CMD != "SubOk") {
+            OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
             OBLOQ_WRONG_TYPE = "mqtt subtopic timeout"
         } else {
             OBLOQ_MQTT_TOPIC[top][1] = "true"
@@ -525,14 +527,17 @@ namespace Obloq {
 
         while (OBLOQ_BOOL_TYPE_IS_TRUE) {
             if (OBLOQ_ANSWER_CMD == "PingOk") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 return OBLOQ_BOOL_TYPE_IS_TRUE
             } else if (OBLOQ_ANSWER_CMD == "timeout") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 return OBLOQ_BOOL_TYPE_IS_FALSE
             }
             basic.pause(100)
             _timeout += 1
             if (_timeout > timeout) {
                 if (OBLOQ_ANSWER_CMD != "PingOk") {
+                    OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                     return OBLOQ_BOOL_TYPE_IS_FALSE
                 }
                 else {
@@ -567,14 +572,17 @@ namespace Obloq {
 
         while (OBLOQ_BOOL_TYPE_IS_TRUE) {
             if (OBLOQ_ANSWER_CMD == "GetVersion") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 return OBLOQ_ANSWER_CONTENT
             } else if (OBLOQ_ANSWER_CMD == "timeout") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 return "timeout"
             }
             basic.pause(100)
             _timeout += 1
             if (_timeout > timeout) {
                 if (OBLOQ_ANSWER_CMD != "GetVersion") {
+                    OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                     return "timeout"
                 }
                 else {
@@ -609,14 +617,17 @@ namespace Obloq {
 
         while (OBLOQ_BOOL_TYPE_IS_TRUE) {
             if (OBLOQ_ANSWER_CMD == "Heartbeat") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 return OBLOQ_BOOL_TYPE_IS_TRUE
             } else if (OBLOQ_ANSWER_CMD == "timeout") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 return OBLOQ_BOOL_TYPE_IS_FALSE
             }
             basic.pause(100)
             _timeout += 1
             if (_timeout > timeout) {
                 if (OBLOQ_ANSWER_CMD != "Heartbeat") {
+                    OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                     return OBLOQ_BOOL_TYPE_IS_FALSE
                 }
                 else {
@@ -649,14 +660,17 @@ namespace Obloq {
 
         while (OBLOQ_BOOL_TYPE_IS_TRUE) {
             if (OBLOQ_ANSWER_CMD == "Heartbeat") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 return OBLOQ_BOOL_TYPE_IS_TRUE
             } else if (OBLOQ_ANSWER_CMD == "timeout") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 return OBLOQ_BOOL_TYPE_IS_FALSE
             }
             basic.pause(100)
             _timeout += 1
             if (_timeout > timeout) {
                 if (OBLOQ_ANSWER_CMD != "Heartbeat") {
+                    OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                     return OBLOQ_BOOL_TYPE_IS_FALSE
                 }
                 else {
@@ -683,15 +697,18 @@ namespace Obloq {
 
         while (OBLOQ_BOOL_TYPE_IS_TRUE) {
             if (OBLOQ_ANSWER_CMD == "WifiDisconnect") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 Obloq_mark_reset("wifi")
                 return OBLOQ_BOOL_TYPE_IS_TRUE
             } else if (OBLOQ_ANSWER_CMD == "timeout") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 return OBLOQ_BOOL_TYPE_IS_FALSE
             }
             basic.pause(100)
             _timeout += 1
             if (_timeout > timeout) {
                 if (OBLOQ_ANSWER_CMD != "WifiDisconnect") {
+                    OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                     return OBLOQ_BOOL_TYPE_IS_FALSE
                 }
                 else {
@@ -806,9 +823,11 @@ namespace Obloq {
                 Obloq_wifi_icon_display()
             }
             if (OBLOQ_ANSWER_CMD == "WifiConnected") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 OBLOQ_WIFI_IP = OBLOQ_ANSWER_CONTENT
                 return OBLOQ_ERROR_TYPE_IS_SUCCE
             } else if (OBLOQ_ANSWER_CMD == "WifiConnectFailure") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 return OBLOQ_ERROR_TYPE_IS_WIFI_CONNECT_FAILURE
             }
             basic.pause(100)
@@ -844,11 +863,14 @@ namespace Obloq {
         while (OBLOQ_BOOL_TYPE_IS_TRUE) {
             basic.pause(100)
             if (OBLOQ_ANSWER_CMD == "200") {//http请求成功
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 return OBLOQ_ANSWER_CONTENT //返回消息
             } else if (OBLOQ_ANSWER_CMD == "-1") {//获取数据失败
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 Obloq_http_wrong_animation("requestFailed")
                 return OBLOQ_STR_TYPE_IS_NONE
             } else if (OBLOQ_ANSWER_CMD == "1") {//http请求字段错误
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 Obloq_http_wrong_animation("requestFailed")
                 return OBLOQ_STR_TYPE_IS_NONE
             }
@@ -1029,8 +1051,10 @@ namespace Obloq {
                 iconnum += 1;
             }
             if (OBLOQ_ANSWER_CMD == "MqttConneted") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 break
             } else if (OBLOQ_ANSWER_CMD == "MqttConnectFailure") {
+                OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                 return OBLOQ_ERROR_TYPE_IS_MQTT_CONNECT_FAILURE
             }
             basic.pause(1)
@@ -1038,6 +1062,7 @@ namespace Obloq {
 
         }
         if (_timeout >= 1000 && OBLOQ_ANSWER_CMD != "MqttConneted") {
+            OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
             return OBLOQ_ERROR_TYPE_IS_MQTT_CONNECT_TIMEOUT
         }
         for (let i = 0; i < OBLOQ_MQTT_TOPIC_NUM_MAX; i++) {
@@ -1058,6 +1083,7 @@ namespace Obloq {
                         OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                         break
                     } else if (OBLOQ_ANSWER_CMD == "SubFailure") {
+                        OBLOQ_ANSWER_CMD = OBLOQ_STR_TYPE_IS_NONE
                         return OBLOQ_ERROR_TYPE_IS_MQTT_SUBTOPIC_FAILURE
                     }
                 }
